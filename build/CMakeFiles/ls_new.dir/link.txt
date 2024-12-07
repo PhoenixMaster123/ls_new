@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file,CMakeFiles/ls_new.dir/link.d CMakeFiles/ls_new.dir/src/main.c.o CMakeFiles/ls_new.dir/src/filesystem.c.o CMakeFiles/ls_new.dir/src/output.c.o CMakeFiles/ls_new.dir/src/threads.c.o -o ls_new
