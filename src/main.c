@@ -11,14 +11,37 @@ typedef struct {
     int show_hidden;     // Flag für -a
     int detailed;        // Flag für -l
     int recursive;       // Flag für -r
+    int threads;         // Flag für -t
     char path[512];      // Zielverzeichnis (Standard: aktuelles Verzeichnis)
+
 } Options;
+void show_help() {
+    printf("Verwendung: ls_new [OPTIONEN] [PFAD]\n\
+Zeige Dateien in einem Verzeichnis an.\n\
+\nOptionen:\n\
+  -a               Zeige alle Dateien, einschließlich versteckter Dateien (Dateien, deren Name mit '.' beginnt).\n\
+  -l               Zeige detaillierte Informationen zu Dateien (z. B. Größe, Berechtigungen).\n\
+  -r               Rekursives Traversieren von Verzeichnissen ohne Threads.\n\
+  -t               Rekursives Traversieren von Verzeichnissen mit Threads (parallelisiert).\n\
+  -h, --help       Zeige diese Hilfe an.\n\
+\nPfad:\n  Standardmäßig wird das aktuelle Verzeichnis (.) verwendet, falls kein Pfad angegeben ist.\n\
+\nBeispiele:\n\
+  ./ls_new                       Listet Dateien im aktuellen Verzeichnis auf.\n\
+  ./ls_new -a                    Listet alle Dateien (einschließlich versteckter) auf.\n\
+  ./ls_new -l                    Zeigt detaillierte Informationen zu Dateien.\n\
+  ./ls_new -r /path/to/dir       Durchsucht ein Verzeichnis rekursiv ohne Threads.\n\
+  ./ls_new -t /path/to/dir       Durchsucht ein Verzeichnis rekursiv mit Threads.\n\
+  echo \"/path/to/dir\" | ./ls_new Liest den Pfad aus der Standard-Eingabe (stdin).\n\
+  ./ls_new -a -l -t /path/to/dir Zeigt alle Dateien mit Details und rekursivem Traversieren mit Threads an.\n");
+    exit(EXIT_SUCCESS);
+}
 
 // Funktion zur Verarbeitung der Argumente
 void parse_arguments(int argc, char *argv[], Options *opts) {
     opts->show_hidden = 0;
     opts->detailed = 0;
     opts->recursive = 0;
+    opts->threads =0;
     strcpy(opts->path, "."); // Standard: aktuelles Verzeichnis
 
     int path_set = 0; // Um zu erkennen, ob der Pfad aus Argumenten gesetzt wurde
@@ -30,7 +53,13 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
             opts->detailed = 1;
         } else if (strcmp(argv[i], "-r") == 0) {
             opts->recursive = 1;
-        } else {
+        } else if (strcmp(argv[i], "-t") == 0) {
+            opts->threads = 1;
+            opts->recursive = 1;
+        }
+        else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
+            show_help();
+        }else {
             // Wenn ein Pfad übergeben wurde
             strncpy(opts->path, argv[i], sizeof(opts->path) - 1);
             opts->path[sizeof(opts->path) - 1] = '\0';
@@ -44,6 +73,7 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
             fprintf(stderr, "Fehler: Kein Verzeichnis angegeben.\n");
             exit(EXIT_FAILURE);
         }
+
         // Entferne das abschließende '\n', falls vorhanden
         opts->path[strcspn(opts->path, "\n")] = '\0';
     }
@@ -59,12 +89,22 @@ int main(int argc, char *argv[]) {
     FileList *files = create_file_list(); // Dynamische Datenstruktur für Dateien
 
     if (opts.recursive) {
-        // Rekursive Auflistung
-        if (traverse_directory_with_threads(opts.path, opts.show_hidden, files) != 0) {
+        if (opts.threads) {
+            // Rekursive Auflistung
+            if (traverse_directory_with_threads(opts.path, opts.show_hidden, files) != 0) {
+                perror("Fehler beim Traversieren des Verzeichnisses");
+                fprintf(stderr, "Verzeichnis: %s\n", opts.path);
+                destroy_file_list(files);
+                return EXIT_FAILURE;
+            }
+        }else {
+            if (traverse_directory_recursive(opts.path, opts.show_hidden, files) != 0) {
             perror("Fehler beim Traversieren des Verzeichnisses");
             fprintf(stderr, "Verzeichnis: %s\n", opts.path);
             destroy_file_list(files);
             return EXIT_FAILURE;
+        }
+
         }
     } else {
         // Nicht-rekursives Traversieren

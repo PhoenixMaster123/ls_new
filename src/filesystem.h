@@ -35,5 +35,5 @@ int traverse_directory(const char *path, int show_hidden, FileList *list);
 
 // Funktion, um ein Verzeichnis rekursiv zu traversieren (inkl. Unterverzeichnisse)
 int traverse_directory_recursive(const char *path, int show_hidden, FileList *list);
-
+int sort_file_list_alphabetically(const char *path, int show_hidden, FileList *list);
 #endif // FILESYSTEM_H
