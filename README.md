@@ -5,7 +5,7 @@
 - **`-a`**: Zeige alle Dateien, einschließlich versteckter Dateien (Dateien, deren Name mit `.` beginnt).
 - **`-l`**: Zeige detaillierte Informationen zu Dateien (z. B. Größe, Berechtigungen).
 - **`-r`**: Rekursives Traversieren von Verzeichnissen ohne Threads.
-- **`-R`**: Rekursives Traversieren von Verzeichnissen mit Threads (parallelisiert).
+- **`-t`**: kombination mit -r Rekursives Traversieren von Verzeichnissen mit Threads (parallelisiert).
 
 ### Standard:
 - **Pfad**: Angabe des Verzeichnisses, das durchsucht werden soll.  
