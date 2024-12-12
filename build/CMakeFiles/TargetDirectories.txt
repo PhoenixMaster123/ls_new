@@ -1,3 +1,0 @@
-/home/enrico/CLionProjects/ls_new/build/CMakeFiles/ls_new.dir
-/home/enrico/CLionProjects/ls_new/build/CMakeFiles/edit_cache.dir
-/home/enrico/CLionProjects/ls_new/build/CMakeFiles/rebuild_cache.dir
