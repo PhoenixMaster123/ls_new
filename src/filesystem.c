@@ -132,4 +132,53 @@ int traverse_directory_recursive(const char *path, int show_hidden, FileList *li
     closedir(dir); // Verzeichnis schließen
     return 0;
 }
+void sort_file_list_by_size(FileList *list) {
+    if (!list->head || !list->head->next) {
+        return; // Keine Sortierung erforderlich
+    }
+
+    for (FileNode *i = list->head; i != NULL; i = i->next) {
+        for (FileNode *j = i->next; j != NULL; j = j->next) {
+            if (i->file_stat.st_size < j->file_stat.st_size) {
+                // Tausche die Inhalte der Knoten
+                char temp_name[256];
+                struct stat temp_stat;
+
+                strncpy(temp_name, i->name, sizeof(temp_name));
+                temp_stat = i->file_stat;
+
+                strncpy(i->name, j->name, sizeof(i->name));
+                i->file_stat = j->file_stat;
+
+                strncpy(j->name, temp_name, sizeof(j->name));
+                j->file_stat = temp_stat;
+            }
+        }
+    }
+}
+void sort_file_list_alphabetically(FileList *list) {
+    if (!list->head || !list->head->next) {
+        return; // Keine Sortierung erforderlich
+    }
+
+    for (FileNode *i = list->head; i != NULL; i = i->next) {
+        for (FileNode *j = i->next; j != NULL; j = j->next) {
+            if (strcmp(i->name, j->name) > 0) {
+                // Tausche die Inhalte der Knoten
+                char temp_name[256];
+                struct stat temp_stat;
+
+                strncpy(temp_name, i->name, sizeof(temp_name));
+                temp_stat = i->file_stat;
+
+                strncpy(i->name, j->name, sizeof(i->name));
+                i->file_stat = j->file_stat;
+
+                strncpy(j->name, temp_name, sizeof(j->name));
+                j->file_stat = temp_stat;
+            }
+        }
+    }
+}
+
 

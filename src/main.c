@@ -12,6 +12,7 @@ typedef struct {
     int detailed;        // Flag für -l
     int recursive;       // Flag für -r
     int threads;         // Flag für -t
+    int sort_by_size;    // Flag für -S
     char path[512];      // Zielverzeichnis (Standard: aktuelles Verzeichnis)
 
 } Options;
@@ -23,6 +24,7 @@ Zeige Dateien in einem Verzeichnis an.\n\
   -l               Zeige detaillierte Informationen zu Dateien (z. B. Größe, Berechtigungen).\n\
   -r               Rekursives Traversieren von Verzeichnissen ohne Threads.\n\
   -t               Rekursives Traversieren von Verzeichnissen mit Threads (parallelisiert).\n\
+  -S               Sortiere Dateien nach Größe (größte zuerst).\n\
   -h, --help       Zeige diese Hilfe an.\n\
 \nPfad:\n  Standardmäßig wird das aktuelle Verzeichnis (.) verwendet, falls kein Pfad angegeben ist.\n\
 \nBeispiele:\n\
@@ -42,6 +44,7 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
     opts->detailed = 0;
     opts->recursive = 0;
     opts->threads =0;
+    opts->sort_by_size = 0;
     strcpy(opts->path, "."); // Standard: aktuelles Verzeichnis
 
     int path_set = 0; // Um zu erkennen, ob der Pfad aus Argumenten gesetzt wurde
@@ -56,6 +59,8 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
         } else if (strcmp(argv[i], "-t") == 0) {
             opts->threads = 1;
             opts->recursive = 1;
+        }else if (strcmp(argv[i], "-S") == 0) {
+            opts->sort_by_size=1;
         }
         else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
             show_help();
@@ -114,7 +119,9 @@ int main(int argc, char *argv[]) {
             return EXIT_FAILURE;
         }
     }
-
+    if (opts.sort_by_size) {
+        sort_file_list_by_size(files);
+    }
     // Ausgabe generieren
     if (opts.detailed) {
         print_detailed(files);

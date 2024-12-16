@@ -17,8 +17,8 @@ typedef struct {
 void *thread_worker(void *arg) {
     ThreadTask *task = (ThreadTask *)arg;
 
-    // Traversieren des Verzeichnisses
-    if (traverse_directory(task->path, task->show_hidden, task->file_list) != 0) {
+    // Rekursives Traversieren des Verzeichnisses
+    if (traverse_directory_with_threads(task->path, task->show_hidden, task->file_list) != 0) {
         fprintf(stderr, "Fehler beim Traversieren des Verzeichnisses %s\n", task->path);
     }
 
@@ -28,7 +28,6 @@ void *thread_worker(void *arg) {
 
 // Rekursive Verzeichnisdurchläufe mit Threads
 int traverse_directory_with_threads(const char *path, int show_hidden, FileList *file_list) {
-    printf("Mit Threads\n");
     DIR *dir = opendir(path);
     if (!dir) {
         perror("Fehler beim Öffnen des Verzeichnisses");
@@ -55,7 +54,7 @@ int traverse_directory_with_threads(const char *path, int show_hidden, FileList 
             continue;
         }
 
-        // Fügt die Datei zur Liste hinzu
+        // Füge die Datei zur Liste hinzu
         pthread_mutex_lock(&list_mutex);
         add_file_to_list(file_list, entry->d_name, &file_stat);
         pthread_mutex_unlock(&list_mutex);
