@@ -82,14 +82,9 @@ int traverse_directory(const char *path, int show_hidden, FileList *list) {
     closedir(dir);
     return 0;
 }
-void debug_file_list(FileList *list) {
-    FileNode *current = list->head;
-    printf("Inhalt der FileList:\n");
-    while (current) {
-        printf("- %s\n", current->name);
-        current = current->next;
-    }
-}
+
+
+
 int traverse_directory_recursive(const char *path, int show_hidden, FileList *list) {
     DIR *dir = opendir(path);
     if (!dir) {
@@ -156,14 +151,26 @@ void sort_file_list_by_size(FileList *list) {
         }
     }
 }
-void sort_file_list_alphabetically(FileList *list) {
+
+
+const char* get_extension(const char* filename) {
+    const char* dot = strrchr(filename, '.'); // Suche nach dem letzten Punkt
+    if (!dot || dot == filename) return "";   // Keine Dateiendung vorhanden
+    return dot + 1;                           // Rückgabe der Erweiterung
+}
+
+void sort_file_list_by_extension(FileList *list) {
     if (!list->head || !list->head->next) {
         return; // Keine Sortierung erforderlich
     }
 
     for (FileNode *i = list->head; i != NULL; i = i->next) {
         for (FileNode *j = i->next; j != NULL; j = j->next) {
-            if (strcmp(i->name, j->name) > 0) {
+            const char* ext_i = get_extension(i->name);
+            const char* ext_j = get_extension(j->name);
+
+            // Vergleiche Erweiterungen lexikografisch
+            if (strcmp(ext_i, ext_j) > 0) {
                 // Tausche die Inhalte der Knoten
                 char temp_name[256];
                 struct stat temp_stat;
@@ -180,5 +187,3 @@ void sort_file_list_alphabetically(FileList *list) {
         }
     }
 }
-
-

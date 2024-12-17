@@ -13,6 +13,7 @@ typedef struct {
     int recursive;       // Flag für -r
     int threads;         // Flag für -t
     int sort_by_size;    // Flag für -S
+    int sort_by_extension; // Flag für -X
     char path[512];      // Zielverzeichnis (Standard: aktuelles Verzeichnis)
 
 } Options;
@@ -25,6 +26,7 @@ Zeige Dateien in einem Verzeichnis an.\n\
   -r               Rekursives Traversieren von Verzeichnissen ohne Threads.\n\
   -t               Rekursives Traversieren von Verzeichnissen mit Threads (parallelisiert).\n\
   -S               Sortiere Dateien nach Größe (größte zuerst).\n\
+  -X               Sortiere Dateien nach extension (nach Alphabet).\n\
   -h, --help       Zeige diese Hilfe an.\n\
 \nPfad:\n  Standardmäßig wird das aktuelle Verzeichnis (.) verwendet, falls kein Pfad angegeben ist.\n\
 \nBeispiele:\n\
@@ -54,7 +56,9 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
             opts->show_hidden = 1;
         } else if (strcmp(argv[i], "-l") == 0) {
             opts->detailed = 1;
-        } else if (strcmp(argv[i], "-r") == 0) {
+        }
+        //entfernen
+        else if (strcmp(argv[i], "-r") == 0) {
             opts->recursive = 1;
         } else if (strcmp(argv[i], "-t") == 0) {
             opts->threads = 1;
@@ -64,7 +68,11 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
         }
         else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
             show_help();
-        }else {
+        }
+        else if (strcmp(argv[i], "-X") == 0)  {
+            opts->sort_by_extension=1;
+        }
+        else {
             // Wenn ein Pfad übergeben wurde
             strncpy(opts->path, argv[i], sizeof(opts->path) - 1);
             opts->path[sizeof(opts->path) - 1] = '\0';
@@ -121,6 +129,8 @@ int main(int argc, char *argv[]) {
     }
     if (opts.sort_by_size) {
         sort_file_list_by_size(files);
+    }else if (opts.sort_by_extension) {
+        sort_file_list_by_extension(files);
     }
     // Ausgabe generieren
     if (opts.detailed) {
