@@ -37,4 +37,7 @@ int traverse_directory(const char *path, int show_hidden, FileList *list);
 int traverse_directory_recursive(const char *path, int show_hidden, FileList *list);
 void sort_file_list_by_size(FileList *list);
 void sort_file_list_alphabetically(FileList *list);//noch nicht implementirert
+
+// Funktion, um ein Verzeichnis nach Zeit zu sortieren. (Neueste Zuerst)
+void sort_file_list_by_time(FileList *list);
 #endif // FILESYSTEM_H
