@@ -190,7 +190,7 @@ void sort_file_list_by_time(FileList *list)
     {
         for(FileNode *j = i->next; j != NULL; j = j->next)
         {
-            if(i->stat_mtime < j->stat_mtime)
+            if(i->file_stat.st_mtime < j->file_stat.st_mtime)
             {
             char temp_name[256];
             struct stat temp_stat;
