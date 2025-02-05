@@ -10,7 +10,8 @@
 typedef struct {
     int show_hidden;     // Flag für -a
     int detailed;        // Flag für -l
-    int recursive;       // Flag für -r
+    int reverse;         // Flag für -r
+    int recursive;       // Flag für -R
     int threads;         // Flag für -t
     int sort_by_size;    // Flag für -S
     char path[512];      // Zielverzeichnis (Standard: aktuelles Verzeichnis)
@@ -42,6 +43,7 @@ Zeige Dateien in einem Verzeichnis an.\n\
 void parse_arguments(int argc, char *argv[], Options *opts) {
     opts->show_hidden = 0;
     opts->detailed = 0;
+    opts->reverse = 0;
     opts->recursive = 0;
     opts->threads =0;
     opts->sort_by_size = 0;
@@ -54,6 +56,8 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
             opts->show_hidden = 1;
         } else if (strcmp(argv[i], "-l") == 0) {
             opts->detailed = 1;
+        } else if (strcmp(argv[i], "-r") == 0) {
+            opts->reverse = 1;
         } else if (strcmp(argv[i], "-R") == 0) {
             opts->recursive = 1;
         } else if (strcmp(argv[i], "-t") == 0) {
@@ -121,6 +125,9 @@ int main(int argc, char *argv[]) {
     }
     if (opts.sort_by_size) {
         sort_file_list_by_size(files);
+    }
+    if (opts.reverse) {
+        reverse_file_list(files);
     }
     // Ausgabe generieren
     if (opts.detailed) {
