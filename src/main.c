@@ -20,9 +20,9 @@ void show_help() {
     printf("Verwendung: ls_new [OPTIONEN] [PFAD]\n\
 Zeige Dateien in einem Verzeichnis an.\n\
 \nOptionen:\n\
-  -a               Zeige alle Dateien, einschließlich versteckter Dateien (Dateien, deren Name mit '.' beginnt).\n\
+  -a               https://github.com/CodeWizard2001/ls_new.gitZeige alle Dateien, einschließlich versteckter Dateien (Dateien, deren Name mit '.' beginnt).\n\
   -l               Zeige detaillierte Informationen zu Dateien (z. B. Größe, Berechtigungen).\n\
-  -r               Rekursives Traversieren von Verzeichnissen ohne Threads.\n\
+  -R               Rekursives Traversieren von Verzeichnissen ohne Threads.\n\
   -t               Rekursives Traversieren von Verzeichnissen mit Threads (parallelisiert).\n\
   -S               Sortiere Dateien nach Größe (größte zuerst).\n\
   -h, --help       Zeige diese Hilfe an.\n\
@@ -31,7 +31,7 @@ Zeige Dateien in einem Verzeichnis an.\n\
   ./ls_new                       Listet Dateien im aktuellen Verzeichnis auf.\n\
   ./ls_new -a                    Listet alle Dateien (einschließlich versteckter) auf.\n\
   ./ls_new -l                    Zeigt detaillierte Informationen zu Dateien.\n\
-  ./ls_new -r /path/to/dir       Durchsucht ein Verzeichnis rekursiv ohne Threads.\n\
+  ./ls_new -R /path/to/dir       Durchsucht ein Verzeichnis rekursiv ohne Threads.\n\
   ./ls_new -t /path/to/dir       Durchsucht ein Verzeichnis rekursiv mit Threads.\n\
   echo \"/path/to/dir\" | ./ls_new Liest den Pfad aus der Standard-Eingabe (stdin).\n\
   ./ls_new -a -l -t /path/to/dir Zeigt alle Dateien mit Details und rekursivem Traversieren mit Threads an.\n");
@@ -54,7 +54,7 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
             opts->show_hidden = 1;
         } else if (strcmp(argv[i], "-l") == 0) {
             opts->detailed = 1;
-        } else if (strcmp(argv[i], "-r") == 0) {
+        } else if (strcmp(argv[i], "-R") == 0) {
             opts->recursive = 1;
         } else if (strcmp(argv[i], "-t") == 0) {
             opts->threads = 1;

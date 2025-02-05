@@ -37,4 +37,7 @@ int traverse_directory(const char *path, int show_hidden, FileList *list);
 int traverse_directory_recursive(const char *path, int show_hidden, FileList *list);
 void sort_file_list_by_size(FileList *list);
 void sort_file_list_alphabetically(FileList *list);//noch nicht implementirert
+
+// Funktion, um die Datei-Liste zu reversieren
+void reverse_file_list(FileList *list);
 #endif // FILESYSTEM_H
