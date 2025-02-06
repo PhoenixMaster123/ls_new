@@ -1,51 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "main.h"
 #include "filesystem.h"
 #include "output.h"
 #include "threads.h"
 
 
-// Programmoptionen
-typedef struct {
-
-    int show_hidden;        // Flag für -a
-    int detailed;           // Flag für -l
-    int reverse;            // Flag für -r
-    int recursive;          // Flag für -R
-    int threads;            // Flag für -t
-    int sort_by_size;       // Flag für -S
-    int sort_by_time;       // Flag für -M (Original ls flag = -t)
-    int sort_by_extension;  // Flag für -X
-    char path[512];         // Zielverzeichnis (Standard: aktuelles Verzeichnis)
-
-
-} Options;
 void show_help() {
-    printf("Verwendung: ls_new [OPTIONEN] [PFAD]\n\
-Zeige Dateien in einem Verzeichnis an.\n\
-\nOptionen:\n\
-  -a               https://github.com/CodeWizard2001/ls_new.gitZeige alle Dateien, einschließlich versteckter Dateien (Dateien, deren Name mit '.' beginnt).\n\
-  -l               Zeige detaillierte Informationen zu Dateien (z. B. Größe, Berechtigungen).\n\
-  -R               Rekursives Traversieren von Verzeichnissen ohne Threads.\n\
-  -t               Rekursives Traversieren von Verzeichnissen mit Threads (parallelisiert).\n\
-  -S               Sortiere Dateien nach Größe (größte zuerst).\n\
-  -M               Sortiere Dateien nach Modifikationsdatum (neueste zuerst).\n\
-  -X               Sortiere Dateien nach extension (nach Alphabet).\n\
-  -h, --help       Zeige diese Hilfe an.\n\
-\nPfad:\n  Standardmäßig wird das aktuelle Verzeichnis (.) verwendet, falls kein Pfad angegeben ist.\n\
-\nBeispiele:\n\
-  ./ls_new                       Listet Dateien im aktuellen Verzeichnis auf.\n\
-  ./ls_new -a                    Listet alle Dateien (einschließlich versteckter) auf.\n\
-  ./ls_new -l                    Zeigt detaillierte Informationen zu Dateien.\n\
-  ./ls_new -R /path/to/dir       Durchsucht ein Verzeichnis rekursiv ohne Threads.\n\
-  ./ls_new -t /path/to/dir       Durchsucht ein Verzeichnis rekursiv mit Threads.\n\
-  echo \"/path/to/dir\" | ./ls_new Liest den Pfad aus der Standard-Eingabe (stdin).\n\
-  ./ls_new -a -l -t /path/to/dir Zeigt alle Dateien mit Details und rekursivem Traversieren mit Threads an.\n");
+    printf("%s", HELP_TEXT);
     exit(EXIT_SUCCESS);
 }
 
-
+// Funktion zur Verarbeitung der Argumente
 void parse_arguments(int argc, char *argv[], Options *opts) {
     opts->show_hidden = 0;
     opts->detailed = 0;
@@ -66,7 +33,6 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
         } else if (strcmp(argv[i], "-r") == 0) {
             opts->reverse = 1;
         } else if (strcmp(argv[i], "-R") == 0) {
-
             opts->recursive = 1;
         } else if (strcmp(argv[i], "-t") == 0) {
             opts->threads = 1;
@@ -77,11 +43,9 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
             opts->sort_by_time = 1;
         } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
             show_help();
-        } 
-        else if (strcmp(argv[i], "-X") == 0)  {
+        } else if (strcmp(argv[i], "-X") == 0)  {
             opts->sort_by_extension=1;
-        }
-        else {
+        } else {
             strncpy(opts->path, argv[i], sizeof(opts->path) - 1);
             opts->path[sizeof(opts->path) - 1] = '\0';
             path_set = 1;
