@@ -10,23 +10,21 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 
 # Verzeichnisse
 set(SRC_DIR src)
+set(INCLUDE_DIR include)
 
-# Quellen und Header
+# Quellen
 set(SOURCES
-        ${SRC_DIR}/main.c
-        ${SRC_DIR}/filesystem.c
-        ${SRC_DIR}/output.c
-        ${SRC_DIR}/threads.c
-)
-
-set(HEADERS
-        ${SRC_DIR}/filesystem.h
-        ${SRC_DIR}/output.h
-        ${SRC_DIR}/threads.h
+    ${SRC_DIR}/main.c
+    ${SRC_DIR}/filesystem.c
+    ${SRC_DIR}/output.c
+    ${SRC_DIR}/threads.c
 )
 
 # Ziel hinzufügen: Ausführbare Datei
-add_executable(ls_new ${SOURCES} ${HEADERS})
+add_executable(ls_new ${SOURCES})
+
+# Include-Verzeichnis für Header hinzufügen
+target_include_directories(ls_new PRIVATE ${INCLUDE_DIR})
 
 # Optionale Warnungen
 target_compile_options(ls_new PRIVATE -Wall -Wextra -pedantic)
