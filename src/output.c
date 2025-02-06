@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "output.h"
+#include "../include/output.h"
 #include "../include/filesystem.h"
 
 // Einfache Ausgabe der Dateinamen
