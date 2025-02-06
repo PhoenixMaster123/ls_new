@@ -148,11 +148,14 @@ or available locally via: info '(coreutils) ls invocation'\n"
 
 // Struktur für Programmoptionen
 typedef struct {
-    int show_hidden;     // Flag für -a
-    int detailed;        // Flag für -l
-    int recursive;       // Flag für -r
-    int threads;         // Flag für -t
-    int sort_by_size;    // Flag für -S
+    int show_hidden;            // Flag für -a
+    int detailed;               // Flag für -l
+    int reverse;                // Flag für -r
+    int recursive;              // Flag für -R
+    int threads;                // Flag für -t
+    int sort_by_size;           // Flag für -S
+    int sort_by_time;           // Flag für -M
+    int sort_by_extension;      // Flag für -X
     char path[512];      // Zielverzeichnis (Standard: aktuelles Verzeichnis)
 
 } Options;
