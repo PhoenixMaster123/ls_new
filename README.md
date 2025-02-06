@@ -1,6 +1,34 @@
 
 # `ls_new` - Unterstützte Optionen und Anwendungsbeispiele
 
+# Installation Guide
+1. Install Requirements 
+```SHELL 
+sudo apt update && sudo apt install cmake make gcc```
+
+2. Clone Github Project
+```SHELL
+git clone https://<TOKEN>@github.com/CodeWizard2001/ls_new
+cd ls_new```
+
+3. Create Build Directory
+```SHELL
+mkdir build
+cd build```
+
+4. Configure CMake
+```SHELL
+cmake ..```
+
+5. Compile With Make
+```SHELL
+make```
+
+6. Start Programm (only in Build Directory)
+```SHELL
+./ls_new [Option]```
+
+
 ## Unterstützte Optionen
 - **`-a`**: Zeige alle Dateien, einschließlich versteckter Dateien (Dateien, deren Name mit `.` beginnt).
 - **`-l`**: Zeige detaillierte Informationen zu Dateien (z. B. Größe, Berechtigungen).
