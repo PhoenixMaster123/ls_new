@@ -156,7 +156,8 @@ typedef struct {
     int sort_by_size;           // Flag für -S
     int sort_by_time;           // Flag für -M
     int sort_by_extension;      // Flag für -X
-    char path[512];      // Zielverzeichnis (Standard: aktuelles Verzeichnis)
+    char pattern[256];          // Dateinamensmuster (z.B., "*.png")
+    char path[512];             // Zielverzeichnis (Standard: aktuelles Verzeichnis)
 } Options;
 
 // Funktionen (falls spezifische Hauptfunktionen ausgegliedert werden sollen)

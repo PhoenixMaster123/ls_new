@@ -21,7 +21,10 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
     opts->threads =0;
     opts->sort_by_size = 0;
     opts->sort_by_extension = 0;
+    opts->pattern[0] = '\0'; // Initialize pattern to empty
     strcpy(opts->path, ".");
+
+
 
     int path_set = 0; // Um zu erkennen, ob der Pfad aus Argumenten gesetzt wurde
 
@@ -42,7 +45,10 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
         } else if (strcmp(argv[i], "-t") == 0) {
             opts->sort_by_time = 1;
         } else if (strcmp(argv[i], "--help") == 0) {
-            show_help();
+             show_help();
+        } else if (strncmp(argv[i], "*", 1) == 0) {
+            strncpy(opts->pattern, argv[i], sizeof(opts->pattern) - 1);
+            opts->pattern[sizeof(opts->pattern) - 1] = '\0';
         } else if (strcmp(argv[i], "-X") == 0)  {
             opts->sort_by_extension=1;
         } else {
@@ -98,6 +104,41 @@ int main(int argc, char *argv[]) {
             destroy_file_list(files);
             return EXIT_FAILURE;
         }
+    }
+    if (opts.pattern[0] != '\0') {
+        FileList *filtered_files = create_file_list();
+        FileNode *current = files->head;
+
+        // Normalize opts.path *only if* wildcard filtering is being done:
+        char normalized_path[512];
+        strcpy(normalized_path, opts.path);
+        if (normalized_path[strlen(normalized_path) - 1] != '/') {
+            struct stat path_stat;
+            if (stat(normalized_path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode)) {
+                strcat(normalized_path, "/");
+            }
+        }
+
+        while (current != NULL) {
+            char full_path[512];
+
+            snprintf(full_path, sizeof(full_path), "%s%s", normalized_path, current->name);
+
+            const char *filename = strrchr(full_path, '/');
+            if (filename == NULL) {
+                filename = current->name;
+            } else {
+                filename++;
+            }
+
+            if (wildcard_match(filename, opts.pattern)) {
+                add_file_to_list(filtered_files, current->name, &current->file_stat);
+            }
+            current = current->next;
+        }
+
+        destroy_file_list(files);
+        files = filtered_files;
     }
 
     if (opts.sort_by_size) {
