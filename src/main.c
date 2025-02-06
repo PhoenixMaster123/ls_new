@@ -15,6 +15,7 @@ typedef struct {
     int recursive;       // Flag für -R
     int threads;         // Flag für -t
     int sort_by_size;    // Flag für -S
+    int sort_by_time;    // Flag für -M (Original ls flag = -t)
     char path[512];      // Zielverzeichnis (Standard: aktuelles Verzeichnis)
 
 
@@ -28,6 +29,7 @@ Zeige Dateien in einem Verzeichnis an.\n\
   -R               Rekursives Traversieren von Verzeichnissen ohne Threads.\n\
   -t               Rekursives Traversieren von Verzeichnissen mit Threads (parallelisiert).\n\
   -S               Sortiere Dateien nach Größe (größte zuerst).\n\
+  -M               Sortiere Dateien nach Modifikationsdatum (neueste zuerst).\n\
   -X               Sortiere Dateien nach extension (nach Alphabet).\n\
   -h, --help       Zeige diese Hilfe an.\n\
 \nPfad:\n  Standardmäßig wird das aktuelle Verzeichnis (.) verwendet, falls kein Pfad angegeben ist.\n\
@@ -67,17 +69,17 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
         } else if (strcmp(argv[i], "-t") == 0) {
             opts->threads = 1;
             opts->recursive = 1;
-        }else if (strcmp(argv[i], "-S") == 0) {
-            opts->sort_by_size=1;
-        }
-        else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
+        } else if (strcmp(argv[i], "-S") == 0) {
+            opts->sort_by_size = 1;
+        } else if (strcmp(argv[i], "-M") == 0) {
+            opts->sort_by_time = 1;
+        } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
             show_help();
-        }
+        } 
         else if (strcmp(argv[i], "-X") == 0)  {
             opts->sort_by_extension=1;
         }
         else {
-
             strncpy(opts->path, argv[i], sizeof(opts->path) - 1);
             opts->path[sizeof(opts->path) - 1] = '\0';
             path_set = 1;
@@ -139,6 +141,11 @@ int main(int argc, char *argv[]) {
     if (opts.reverse) {
         reverse_file_list(files);
     }
+
+    if (opts.sort_by_time) {
+        sort_file_list_by_time(files);
+    }
+
     // Ausgabe generieren
     if (opts.detailed) {
         print_detailed(files);
