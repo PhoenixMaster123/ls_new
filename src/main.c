@@ -6,15 +6,15 @@
 #include "threads.h"
 
 
-// Struktur für Programmoptionen
+// Programmoptionen
 typedef struct {
-    int show_hidden;     // Flag für -a
-    int detailed;        // Flag für -l
-    int recursive;       // Flag für -r
-    int threads;         // Flag für -t
-    int sort_by_size;    // Flag für -S
-    int sort_by_extension; // Flag für -X
-    char path[512];      // Zielverzeichnis (Standard: aktuelles Verzeichnis)
+    int show_hidden;     // -a
+    int detailed;        // -l
+    int recursive;       // -r
+    int threads;         // -t
+    int sort_by_size;    // -S
+    int sort_by_extension; // -X
+    char path[512];
 
 } Options;
 void show_help() {
@@ -40,14 +40,14 @@ Zeige Dateien in einem Verzeichnis an.\n\
     exit(EXIT_SUCCESS);
 }
 
-// Funktion zur Verarbeitung der Argumente
+
 void parse_arguments(int argc, char *argv[], Options *opts) {
     opts->show_hidden = 0;
     opts->detailed = 0;
     opts->recursive = 0;
     opts->threads =0;
     opts->sort_by_size = 0;
-    strcpy(opts->path, "."); // Standard: aktuelles Verzeichnis
+    strcpy(opts->path, ".");
 
     int path_set = 0; // Um zu erkennen, ob der Pfad aus Argumenten gesetzt wurde
 
@@ -73,7 +73,7 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
             opts->sort_by_extension=1;
         }
         else {
-            // Wenn ein Pfad übergeben wurde
+
             strncpy(opts->path, argv[i], sizeof(opts->path) - 1);
             opts->path[sizeof(opts->path) - 1] = '\0';
             path_set = 1;
