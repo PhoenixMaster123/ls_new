@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "main.h"
-#include "filesystem.h"
-#include "output.h"
-#include "threads.h"
+#include "../include/main.h"
+#include "../include/filesystem.h"
+#include "../include/output.h"
+#include "../include/threads.h"
 
 
 void show_help() {

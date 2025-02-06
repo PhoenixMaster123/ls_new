@@ -4,7 +4,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <math.h>
-#include "filesystem.h"
+#include "../include/filesystem.h"
 
 // Definition der FileNode-Struktur
 

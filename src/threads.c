@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
-#include "threads.h"
-#include "filesystem.h"
+#include "../include/threads.h"
+#include "../include/filesystem.h"
 
 // Struktur für Thread-Aufgaben
 typedef struct {
