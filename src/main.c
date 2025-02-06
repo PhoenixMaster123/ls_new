@@ -34,14 +34,14 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
             opts->reverse = 1;
         } else if (strcmp(argv[i], "-R") == 0) {
             opts->recursive = 1;
-        } else if (strcmp(argv[i], "-t") == 0) {
+        } else if (strcmp(argv[i], "-z") == 0) {
             opts->threads = 1;
             opts->recursive = 1;
         } else if (strcmp(argv[i], "-S") == 0) {
             opts->sort_by_size = 1;
-        } else if (strcmp(argv[i], "-M") == 0) {
+        } else if (strcmp(argv[i], "-t") == 0) {
             opts->sort_by_time = 1;
-        } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
+        } else if (strcmp(argv[i], "--help") == 0) {
             show_help();
         } else if (strcmp(argv[i], "-X") == 0)  {
             opts->sort_by_extension=1;
