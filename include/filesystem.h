@@ -30,9 +30,11 @@ void add_file_to_list(FileList *list, const char *name, const struct stat *file_
 // Funktion, um die Datei-Liste und ihre Knoten freizugeben
 void destroy_file_list(FileList *list);
 
+// Funktion, um ein Verzeichnis nach Dateitypen zu filtern
+int wildcard_match(const char *str, const char *pattern);
+
 // Funktion, um ein Verzeichnis zu traversieren und Dateien in die Liste einzutragen
 int traverse_directory(const char *path, int show_hidden, FileList *list);
-
 // Funktion, um ein Verzeichnis rekursiv zu traversieren (inkl. Unterverzeichnisse)
 int traverse_directory_recursive(const char *path, int show_hidden, FileList *list);
 void sort_file_list_by_size(FileList *list);

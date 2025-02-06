@@ -85,6 +85,19 @@ int traverse_directory(const char *path, int show_hidden, FileList *list) {
 }
 
 
+int wildcard_match(const char *str, const char *pattern) {
+    switch (*pattern) {
+        case '\0':  // End of pattern
+            return *str == '\0'; // Match if string is also empty
+        case '*':   // Wildcard
+            return wildcard_match(str, pattern + 1) || // Match * with empty string
+                   (*str != '\0' && wildcard_match(str + 1, pattern)); // Match * with 1+ chars
+        case '?':   // Any single character
+            return *str != '\0' && wildcard_match(str + 1, pattern + 1); // Match any char + rest
+        default:    // Literal character
+            return *str == *pattern && wildcard_match(str + 1, pattern + 1); // Match char + rest
+    }
+}
 
 int traverse_directory_recursive(const char *path, int show_hidden, FileList *list) {
     DIR *dir = opendir(path);
@@ -104,7 +117,6 @@ int traverse_directory_recursive(const char *path, int show_hidden, FileList *li
         if (!show_hidden && entry->d_name[0] == '.') {
             continue;
         }
-
         char full_path[512];
         snprintf(full_path, sizeof(full_path), "%s/%s", path, entry->d_name);
 
