@@ -1,40 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "main.h"
 #include "filesystem.h"
 #include "output.h"
 #include "threads.h"
 
 
-// Struktur für Programmoptionen
-typedef struct {
-    int show_hidden;     // Flag für -a
-    int detailed;        // Flag für -l
-    int recursive;       // Flag für -r
-    int threads;         // Flag für -t
-    int sort_by_size;    // Flag für -S
-    char path[512];      // Zielverzeichnis (Standard: aktuelles Verzeichnis)
-
-} Options;
 void show_help() {
-    printf("Verwendung: ls_new [OPTIONEN] [PFAD]\n\
-Zeige Dateien in einem Verzeichnis an.\n\
-\nOptionen:\n\
-  -a               Zeige alle Dateien, einschließlich versteckter Dateien (Dateien, deren Name mit '.' beginnt).\n\
-  -l               Zeige detaillierte Informationen zu Dateien (z. B. Größe, Berechtigungen).\n\
-  -r               Rekursives Traversieren von Verzeichnissen ohne Threads.\n\
-  -t               Rekursives Traversieren von Verzeichnissen mit Threads (parallelisiert).\n\
-  -S               Sortiere Dateien nach Größe (größte zuerst).\n\
-  -h, --help       Zeige diese Hilfe an.\n\
-\nPfad:\n  Standardmäßig wird das aktuelle Verzeichnis (.) verwendet, falls kein Pfad angegeben ist.\n\
-\nBeispiele:\n\
-  ./ls_new                       Listet Dateien im aktuellen Verzeichnis auf.\n\
-  ./ls_new -a                    Listet alle Dateien (einschließlich versteckter) auf.\n\
-  ./ls_new -l                    Zeigt detaillierte Informationen zu Dateien.\n\
-  ./ls_new -r /path/to/dir       Durchsucht ein Verzeichnis rekursiv ohne Threads.\n\
-  ./ls_new -t /path/to/dir       Durchsucht ein Verzeichnis rekursiv mit Threads.\n\
-  echo \"/path/to/dir\" | ./ls_new Liest den Pfad aus der Standard-Eingabe (stdin).\n\
-  ./ls_new -a -l -t /path/to/dir Zeigt alle Dateien mit Details und rekursivem Traversieren mit Threads an.\n");
+    printf("%s", HELP_TEXT);
     exit(EXIT_SUCCESS);
 }
 
