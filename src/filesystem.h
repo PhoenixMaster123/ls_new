@@ -41,8 +41,12 @@ void sort_file_list_alphabetically(FileList *list);//noch nicht implementirert
 // Funktion, um ein Verzeichnis nach Zeit zu sortieren. (Neueste Zuerst)
 void sort_file_list_by_time(FileList *list);
 
+// Funktion, um ein Verzeichnis nach Extension zu sortieren
+void sort_file_list_by_extension(FileList *list);
+
 // Funktion, um die Datei-Liste zu reversieren
 void reverse_file_list(FileList *list);
+
 
 
 #endif // FILESYSTEM_H

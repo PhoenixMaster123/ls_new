@@ -9,14 +9,15 @@
 // Programmoptionen
 typedef struct {
 
-    int show_hidden;     // Flag für -a
-    int detailed;        // Flag für -l
-    int reverse;         // Flag für -r
-    int recursive;       // Flag für -R
-    int threads;         // Flag für -t
-    int sort_by_size;    // Flag für -S
-    int sort_by_time;    // Flag für -M (Original ls flag = -t)
-    char path[512];      // Zielverzeichnis (Standard: aktuelles Verzeichnis)
+    int show_hidden;        // Flag für -a
+    int detailed;           // Flag für -l
+    int reverse;            // Flag für -r
+    int recursive;          // Flag für -R
+    int threads;            // Flag für -t
+    int sort_by_size;       // Flag für -S
+    int sort_by_time;       // Flag für -M (Original ls flag = -t)
+    int sort_by_extension;  // Flag für -X
+    char path[512];         // Zielverzeichnis (Standard: aktuelles Verzeichnis)
 
 
 } Options;
@@ -52,6 +53,7 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
     opts->recursive = 0;
     opts->threads =0;
     opts->sort_by_size = 0;
+    opts->sort_by_extension = 0;
     strcpy(opts->path, ".");
 
     int path_set = 0; // Um zu erkennen, ob der Pfad aus Argumenten gesetzt wurde

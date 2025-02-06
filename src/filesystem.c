@@ -160,6 +160,32 @@ const char* get_extension(const char* filename) {
     return dot + 1;                           // Rückgabe der Erweiterung
 }
 
+void sort_file_list_by_time(FileList *list)
+{
+    if (!list->head || !list->head->next) return;
+
+    for(FileNode *i = list->head; i != NULL; i = i->next)
+    {
+        for(FileNode *j = i->next; j != NULL; j = j->next)
+        {
+            if(i->file_stat.st_mtime < j->file_stat.st_mtime)
+            {
+            char temp_name[256];
+            struct stat temp_stat;
+
+            strncpy(temp_name, i->name, sizeof(temp_name));
+            temp_stat = i->file_stat;
+
+            strncpy(i->name, j->name, sizeof(i->name));
+            i->file_stat = j->file_stat;
+
+            strncpy(j->name, temp_name, sizeof(j->name));
+            j->file_stat = temp_stat;
+            }
+        }
+    }
+}
+
 void sort_file_list_by_extension(FileList *list) {
     if (!list->head || !list->head->next) {
         return; // Keine Sortierung erforderlich
@@ -209,29 +235,5 @@ void reverse_file_list(FileList *list) {
 }
 
 
-void sort_file_list_by_time(FileList *list)
-{
-    if (!list->head || !list->head->next) return;
 
-    for(FileNode *i = list->head; i != NULL; i = i->next)
-    {
-        for(FileNode *j = i->next; j != NULL; j = j->next)
-        {
-            if(i->file_stat.st_mtime < j->file_stat.st_mtime)
-            {
-            char temp_name[256];
-            struct stat temp_stat;
-
-            strncpy(temp_name, i->name, sizeof(temp_name));
-            temp_stat = i->file_stat;
-
-            strncpy(i->name, j->name, sizeof(i->name));
-            i->file_stat = j->file_stat;
-
-            strncpy(j->name, temp_name, sizeof(j->name));
-            j->file_stat = temp_stat;
-            }
-        }
-    }
-}
 
