@@ -47,6 +47,4 @@ void sort_file_list_by_extension(FileList *list);
 // Funktion, um die Datei-Liste zu reversieren
 void reverse_file_list(FileList *list);
 
-
-
 #endif // FILESYSTEM_H

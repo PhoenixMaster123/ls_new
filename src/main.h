@@ -157,9 +157,7 @@ typedef struct {
     int sort_by_time;           // Flag für -M
     int sort_by_extension;      // Flag für -X
     char path[512];      // Zielverzeichnis (Standard: aktuelles Verzeichnis)
-
 } Options;
-
 
 // Funktionen (falls spezifische Hauptfunktionen ausgegliedert werden sollen)
 void parse_arguments(int argc, char *argv[], Options *opts);

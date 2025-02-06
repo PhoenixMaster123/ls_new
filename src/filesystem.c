@@ -233,7 +233,3 @@ void reverse_file_list(FileList *list) {
   
     list->head = prev;
 }
-
-
-
-

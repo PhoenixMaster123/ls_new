@@ -99,17 +99,19 @@ int main(int argc, char *argv[]) {
             return EXIT_FAILURE;
         }
     }
+
     if (opts.sort_by_size) {
         sort_file_list_by_size(files);
     }else if (opts.sort_by_extension) {
         sort_file_list_by_extension(files);
     }
-    if (opts.reverse) {
-        reverse_file_list(files);
-    }
 
     if (opts.sort_by_time) {
         sort_file_list_by_time(files);
+    }
+
+    if (opts.reverse) {
+        reverse_file_list(files);
     }
 
     // Ausgabe generieren
