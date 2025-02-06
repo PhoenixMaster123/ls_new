@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "output.h"
-#include "filesystem.h"
+#include "../include/filesystem.h"
 
 // Einfache Ausgabe der Dateinamen
 void print_simple(FileList *list) {

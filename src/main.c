@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "filesystem.h"
-#include "output.h"
-#include "threads.h"
+#include "../include/filesystem.h"
+#include "../include/output.h"
+#include "../include/threads.h"
 
 
 // Programmoptionen
