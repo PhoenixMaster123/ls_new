@@ -3,6 +3,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <math.h>
 #include "filesystem.h"
 
 // Definition der FileNode-Struktur
@@ -186,4 +187,23 @@ void sort_file_list_by_extension(FileList *list) {
             }
         }
     }
+}
+
+void reverse_file_list(FileList *list) {
+    if (!list || !list->head || !list->head->next) {
+        return;
+    }
+
+    FileNode *prev = NULL;
+    FileNode *current = list->head;
+    FileNode *next = NULL;
+
+    while (current) {
+        next = current->next; 
+        current->next = prev;  
+        prev = current;        
+        current = next;
+    }
+
+    list->head = prev;
 }
