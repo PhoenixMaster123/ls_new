@@ -1,9 +1,8 @@
 <div style="background-color: #f0f0f0; padding: 20px; border-radius: 8px;">
-  <h2 style="color: #333; margin-top: 0;"><code>ls_new</code> - Erweiterte Version des <code>ls</code>-Befehls</h2>
+  <h1 style="color: #333; margin-top: 0;"><code>ls_new</code> - Erweiterte Version des <code>ls</code>-Befehls</h1>
 
-  <div style="margin-top: 10px;">
-    <span style="font-size: 1.5em; color: #666;">✨</span> Features
-  </div>
+<h2>Features</h2>
+
 
   <ul style="list-style-type: disc; padding-left: 20px; margin-top: 10px;">
     <li>Anzeige versteckter Dateien (<code>-a</code>)</li>
@@ -44,10 +43,7 @@ cd build</pre>
   </ol>
 </div>
 
-<div style="background-color: #f0f0f0; padding: 20px; border-radius: 8px;">
-  <div style="display: flex; align-items: center;">
-    <span style="font-size: 1.5em; margin-right: 10px;">🔧</span><h2 style="color: #333; margin-top: 0; margin-bottom: 0;">Verfügbare Optionen</h2>
-  </div>
+<h2>Verfügbare Optionen</h2>
 
   <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
     <thead>
@@ -145,11 +141,8 @@ Markdown
     </li>
   </ol>
 </div>
-
-<div style="background-color: #f0f0f0; padding: 20px; border-radius: 8px;">
-  <div style="display: flex; align-items: center;">
-    <span style="font-size: 1.5em; margin-right: 10px;">🏆</span><h2 style="color: #333; margin-top: 0; margin-bottom: 0;">Lizenz</h2>
-  </div>
+   
+<h2>Lizenz</h2>
 
   <p style="margin-top: 10px;">Dieses Projekt steht unter der MIT-Lizenz. Mehr Details findest du in der Datei <a href="LICENSE">LICENSE</a> im Repository.</p> 
 </div>
