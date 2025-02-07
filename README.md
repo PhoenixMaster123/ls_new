@@ -1,6 +1,6 @@
 # `ls_new` - Erweiterte Version des `ls`-Befehls
 
-## Features
+## Features ✨
 
 *   Anzeige versteckter Dateien (`-a`)
 *   Detaillierte Dateiinformationen (`-l`)
@@ -8,7 +8,7 @@
 *   Sortierung nach Größe, Zeit oder Erweiterung (`-S`, `-M`, `-x`)
 *   Filterung durch Dateimuster (`"*.(pattern)"`)
 
-## Installation
+## Installation 🛠️
 
 1.  **Voraussetzungen installieren**
 
@@ -48,7 +48,7 @@
     ./ls_new [Optionen] [Pfad]
     ```
 
-## Verfügbare Optionen
+## Verfügbare Optionen ⚙️
 
 | Option | Beschreibung |
 |---|---|
@@ -62,7 +62,7 @@
 | `-X` | Sortiert nach Dateierweiterung. |
 | `"*.(pattern)"` | Filtert Dateien nach dem angegebenen Muster. |
 
-## Anwendungsbeispiele
+## Anwendungsbeispiele 💡
 
 1.  **Dateien im aktuellen Verzeichnis auflisten**
 
@@ -124,11 +124,11 @@
     ./ls_new -r "*.c"
     ```
 
-## Lizenz
+## Lizenz ⚖️
 
 Dieses Projekt steht unter der MIT-Lizenz. Mehr Details findest du in der Datei [LICENSE](LICENSE).
 
-## Autoren
+## Autoren 👨‍💻👩‍💻
 
 *   Enrico Ebert
 *   Max Tremel
