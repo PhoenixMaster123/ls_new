@@ -29,13 +29,13 @@ void parse_arguments(int argc, char *argv[], Options *opts) {
     int path_set = 0; // Um zu erkennen, ob der Pfad aus Argumenten gesetzt wurde
 
     for (int i = 1; i < argc; i++) {
-        if (strcmp(argv[i], "-a") == 0) {
+        if (strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--all") == 0) {
             opts->show_hidden = 1;
         } else if (strcmp(argv[i], "-l") == 0) {
             opts->detailed = 1;
-        } else if (strcmp(argv[i], "-r") == 0) {
+        } else if (strcmp(argv[i], "-r") == 0  || strcmp(argv[i], "--reverse") == 0) {
             opts->reverse = 1;
-        } else if (strcmp(argv[i], "-R") == 0) {
+        } else if (strcmp(argv[i], "-R") == 0  || strcmp(argv[i], "--recursive") == 0) {
             opts->recursive = 1;
         } else if (strcmp(argv[i], "-z") == 0) {
             opts->threads = 1;

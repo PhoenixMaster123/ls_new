@@ -142,13 +142,13 @@ int traverse_directory_recursive(const char *path, int show_hidden, FileList *li
 }
 void sort_file_list_by_size(FileList *list) {
     if (!list->head || !list->head->next) {
-        return; // Keine Sortierung erforderlich
+        return;
     }
 
     for (FileNode *i = list->head; i != NULL; i = i->next) {
         for (FileNode *j = i->next; j != NULL; j = j->next) {
             if (i->file_stat.st_size < j->file_stat.st_size) {
-                // Tausche die Inhalte der Knoten
+
                 char temp_name[256];
                 struct stat temp_stat;
 
