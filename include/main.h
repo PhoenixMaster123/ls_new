@@ -5,25 +5,23 @@
 #include "threads.h"
 #include "output.h"
 
-#define HELP_TEXT \
-"Usage: ls_new [OPTION]... [FILE]...\n\
-List information about the FILEs (the current directory by default).\n\
-\n\
-Mandatory arguments to long options are mandatory for short options too.\n\
-  -a, --all                  do not ignore entries starting with .\n\
-  -l                         use a long listing format\n\
-  -r, --reverse              reverse order while sorting\n\
-  -R, --recursive            list subdirectories recursively\n\
-  -z,                        list threads subdirectories recursively\n\
-  -S                         sort by file size, largest first\n\
-  -t                         sort by time, newest first; see --time\n\
-  -X                         sort alphabetically by entry extension\n\
-      --help        display this help and exit\n\
-\n\
-     Dateinamensmuster (z.B., *.png)\n\
-Exit status:\n\
- 0  if OK,\n\
- -1  if minor problems (e.g., cannot access subdirectory),\n\"
+#define HELP_TEXT "Usage: ls_new [OPTION]... [FILE]...\n" \
+"List information about the FILEs (the current directory by default).\n\n" \
+"Mandatory arguments to long options are mandatory for short options too.\n" \
+"  -a, --all                  do not ignore entries starting with .\n" \
+"  -l                         use a long listing format\n" \
+"  -r, --reverse              reverse order while sorting\n" \
+"  -R, --recursive            list subdirectories recursively\n" \
+"  -z                         list threads subdirectories recursively\n" \
+"  -S                         sort by file size, largest first\n" \
+"  -t                         sort by time, newest first; see --time\n" \
+"  -X                         sort alphabetically by entry extension\n" \
+"      --help                 display this help and exit\n\n" \
+"Exit status:\n" \
+"  0  if OK,\n" \
+"  -1 if minor problems (e.g., cannot access subdirectory).\n"
+
+
 
 // Struktur für Programmoptionen
 typedef struct {
