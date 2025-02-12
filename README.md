@@ -5,8 +5,8 @@
 *   Anzeige versteckter Dateien (`-a`)
 *   Detaillierte Dateiinformationen (`-l`)
 *   Rekursives Traversieren mit und ohne Threads (`-r`, `-R`)
-*   Recursively list subdirectories of threads (`-z`)
-*   Sortierung nach Größe, Zeit oder Alphabetisch (`-S`, `t`, `-X`)
+*   Rekursives Auflisten von Unterverzeichnissen mit paralleler Verarbeitung (Threads). (`-z`)
+*   Sortierung nach Größe, Zeit oder Alphabetisch (`-S`, `-t`, `-X`)
 *   Filterung durch Dateimuster (`"*.(pattern)"`)
 
 ## Installation 🛠️
