@@ -5,7 +5,8 @@
 *   Anzeige versteckter Dateien (`-a`)
 *   Detaillierte Dateiinformationen (`-l`)
 *   Rekursives Traversieren mit und ohne Threads (`-r`, `-R`)
-*   Sortierung nach Größe, Zeit oder Erweiterung (`-S`, `-M`, `-x`)
+*   Recursively list subdirectories of threads (`-z`)
+*   Sortierung nach Größe, Zeit oder Alphabetisch (`-S`, `t`, `-X`)
 *   Filterung durch Dateimuster (`"*.(pattern)"`)
 
 ## Installation 🛠️
@@ -56,9 +57,9 @@
 | `-l` | Zeigt detaillierte Informationen wie Berechtigungen, Größe und Datum. |
 | `-r` | Rekursives Traversieren von Verzeichnissen (ohne Threads). |
 | `-R` | Rekursives Traversieren von Verzeichnissen mit paralleler Verarbeitung (Threads). |
+| `-z` | Rekursives Auflisten von Unterverzeichnissen mit paralleler Verarbeitung (Threads). |
 | `-t` | Sortiert nach Zeitstempel (neueste zuerst). |
 | `-S` | Sortiert nach Dateigröße (größte zuerst). |
-| `-M` | Sortiert nach letztem Änderungsdatum. |
 | `-X` | Sortiert nach Dateierweiterung. |
 | `"*.(pattern)"` | Filtert Dateien nach dem angegebenen Muster. |
 
@@ -100,30 +101,28 @@
     ./ls_new -S
     ```
 
-7.  **Sortierung nach letztem Änderungsdatum**
+7.  **Sortiert die Ausgabe nach Zeitstempel, neueste zuerst**
 
     ```bash
-    ./ls_new -M
+    ./ls_new -t
     ```
 
-8.  **Dateien nach Erweiterung sortieren**
+8. **Rekursive Auflistung von Unterverzeichnissen innerhalb von Threads.**
+    ```bash
+    ./ls_new -z
+    ```
+
+9.  **Dateien nach Erweiterung sortieren**
 
     ```bash
     ./ls_new -X
     ```
 
-9.  **Nur bestimmte Dateien anzeigen (z. B. alle PNG-Dateien)**
-
-    ```bash
-    ./ls_new "*.png"
-    ```
-
-10. **Rekursive Verarbeitung mit Threads und Filterung kombinieren**
-
-    ```bash
-    ./ls_new -r "*.c"
-    ```
-
+10.  **Nur bestimmte Dateien anzeigen (z. B. alle PNG-Dateien)**
+     ```bash
+     ./ls_new "*.png"
+     ```
+    
 ## Lizenz ⚖️
 
 Dieses Projekt steht unter der MIT-Lizenz. Mehr Details findest du in der Datei [LICENSE](LICENSE).
