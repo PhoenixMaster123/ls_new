@@ -122,7 +122,11 @@
      ```bash
      ./ls_new "*.png"
      ```
-    
+## ls_new: Erweiterte Version des ls-Befehls erklärt (5 Min.)
+https://github.com/user-attachments/assets/1cd3e182-46cb-4bb7-a818-f3e654dda45b
+
+Link für das Video: [ls_new](https://github.com/user-attachments/assets/1cd3e182-46cb-4bb7-a818-f3e654dda45b)
+
 ## Lizenz ⚖️
 
 Dieses Projekt steht unter der MIT-Lizenz. Mehr Details findest du in der Datei [LICENSE](LICENSE).
